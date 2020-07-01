@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Books</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+            <h1>Книжная полка</h1>
+            <button id="add">Добавить книгу</button>
+    </header>
+    <main>
+
+            <ul>
+            </ul>
+
+
+    </main>
+    
+    <form class="editor none">
+        <h2 id = "editor-head">Добавить книгу</h2>
+        <span>Наименование</span>
+        <input type="text" name="head" placeholder="">
+        <span>Автор</span>
+        <input type="text" name="author" placeholder="">
+        <span>Год выпуска</span>
+        <input type="text" name="year" placeholder="" maxlength="4" class="year">
+        <span>Изображение</span>
+        <input type="text" name="img" placeholder="">
+        <div class="buttons-editor">
+                <button id="btn-save">Сохранить</button>
+                <button id="btn-z">Отменить</button>
+        </div>
+  
+    </form>
+    
+    <script src="main.js"></script>
+</body>
+</html>

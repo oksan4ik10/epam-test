@@ -1,0 +1,95 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+header, main{
+    width: 70%;
+    margin: 0px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+button,
+button:active,
+button:focus {
+outline: none !important;
+}
+
+button{
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 10px;
+    border: none;
+}
+button:active {
+    background-color: red;
+    border: none;
+}
+button:hover { background: rgba(232,95,76,0.5); }
+#add{
+   width: 200px;
+}
+img{
+    object-fit: cover;
+    width: 100px;
+  
+}
+ul{
+    padding: 0px;
+}
+li{
+    list-style-type: none;
+    display: flex;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.about-book{
+    width: 50%;
+}
+
+/*Форма редактирования*/
+
+
+
+.editor{
+  
+    width: 70%;
+    margin: 0px auto;
+    /* padding: 0px 0px 0px 20px ;
+    border-radius: 20%; */
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 10px;
+
+}
+
+.editor button{
+    width: 20%;
+}
+.editor input{
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 70%;
+    
+}
+.editor span{
+    align-self: flex-start;
+}
+input.year{
+    width: 15%;
+}
+.buttons-editor{
+    display: flex;
+}
+.buttons-editor button{
+    margin-right: 10px;
+}
+
+
+.none{
+    display: none;
+}
