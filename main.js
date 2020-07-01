@@ -5,8 +5,14 @@ const btnAdd = document.getElementById("add"),
         formEditor = document.querySelector("form"),
         editorHead = document.getElementById("editor-head"),
         btnZ = document.getElementById("btn-z"),
-        btnSave = document.getElementById("btn-save");
+        btnSave = document.getElementById("btn-save"),
+        yearValue = formEditor.querySelector("input[name=year]");
 
+
+//валидация для года
+yearValue.addEventListener("input", ()=>{
+    event.target.value = event.target.value.replace(/\D/,"");
+});
 
 
 const appData = [{
@@ -49,7 +55,6 @@ const appData = [{
 //функция для сохранения данных в объекте
 const editorSave = (i)=>{
     event.preventDefault();
-    // console.log(a);
     const newObj = readForm(formEditor);
     appData[i] = newObj;
     main.classList.remove("none");
@@ -66,8 +71,6 @@ const editorBooks = (dataLi) =>{
     main.classList.add("none");
     formEditor.classList.remove("none");
     editorHead.textContent="Редактирование книги";
-    // const dataLi = target.closest("li");
-
     appData.some((elem, item) =>{
       if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
         formEditor.querySelectorAll("input").forEach((e) => {
@@ -89,7 +92,6 @@ const deleteBook = (dataLi)=>{
         return elem;
     });
     render();
-    
 };
 
 
@@ -132,6 +134,7 @@ btnAdd.addEventListener("click", ()=>{
     main.classList.add("none");
     formEditor.classList.remove("none");
 
+
 });
 
 main.addEventListener("click",(event)=>{
@@ -139,7 +142,6 @@ main.addEventListener("click",(event)=>{
 
     //редактирование 
     if (target.matches(".btn-editor")) editorBooks(target.closest("li"));
-
 
     //удаление
     if (target.matches(".btn-delete")) deleteBook(target.closest("li"));
