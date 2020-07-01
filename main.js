@@ -33,7 +33,19 @@ const appData = [{
     });
     return body;
  };
- 
+ //обнуление данных с формы после нажатия на кнопки
+ const zeroForm = ()=>{
+    formEditor.querySelectorAll("input").forEach((item) => {
+        item.value="";
+    });
+    main.classList.remove("none");
+    formEditor.classList.add("none");
+    btnSave.removeEventListener("click", eSave);
+ }
+
+
+
+
 //функция для сохранения данных в объекте
 const editorSave = (i)=>{
     event.preventDefault();
@@ -43,6 +55,7 @@ const editorSave = (i)=>{
     main.classList.remove("none");
     formEditor.classList.add("none");
     render();
+    zeroForm();
 
 };
 
@@ -95,12 +108,8 @@ render();
 //кнопка Отмена
 btnZ.addEventListener("click", (event)=>{
     event.preventDefault();
-    formEditor.querySelectorAll("input").forEach((item) => {
-        item.value="";
-    });
-    main.classList.remove("none");
-    formEditor.classList.add("none");
-    btnSave.removeEventListener("click", eSave);
+    zeroForm();
+
 })
 
 
