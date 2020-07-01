@@ -4,7 +4,8 @@ const btnAdd = document.getElementById("add"),
         main = document.querySelector("main"),
         formEditor = document.querySelector("form"),
         editorHead = document.getElementById("editor-head"),
-        btnZ = document.getElementById("btn-z");
+        btnZ = document.getElementById("btn-z"),
+        btnSave = document.getElementById("btn-save");
 
 
 
@@ -26,12 +27,26 @@ const appData = [{
 //чтение данных из формы
  const readForm = (form) =>{
     let body={};
-                formData.forEach((val, key) => {
-                    body[key] = val;
+    const formData = new FormData(form);
+        formData.forEach((val, key) => {
+            body[key] = val;
     });
     return body;
  };
  
+//функция для сохранения данных в объекте
+const editorSave = (i)=>{
+    event.preventDefault();
+    // console.log(a);
+    const newObj = readForm(formEditor);
+    appData[i] = newObj;
+    main.classList.remove("none");
+    formEditor.classList.add("none");
+    render();
+
+};
+
+let eSave; //вспомогательная переменная для удаления обработчика события сохранения
 
 //функция для редактирования формы
 const editorBooks = (target) =>{
@@ -40,20 +55,17 @@ const editorBooks = (target) =>{
     editorHead.textContent="Редактирование книги";
     const dataLi = target.closest("li");
 
-    appData.some((elem) =>{
+    appData.some((elem, item) =>{
       if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
         formEditor.querySelectorAll("input").forEach((e) => {
             e.value = elem[e.getAttribute("name")];
         });
-            return elem;
-      }
-      console.log(elem);
-       
-      
+        eSave = editorSave.bind(this, item);
+        btnSave.addEventListener("click",eSave, false);
+        return elem;
+      };
       
     });
-    console.log(12);
-    
 };
 
 //рендер
@@ -88,6 +100,7 @@ btnZ.addEventListener("click", (event)=>{
     });
     main.classList.remove("none");
     formEditor.classList.add("none");
+    btnSave.removeEventListener("click", eSave);
 })
 
 
