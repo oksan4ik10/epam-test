@@ -20,7 +20,9 @@ const appData = [{
         author:"Джоан Роулинг",
         year:"1998",
     }
-];        
+];  
+
+
 //чтение данных из формы
  const readForm = (form) =>{
     let body={};
@@ -38,14 +40,19 @@ const editorBooks = (target) =>{
     editorHead.textContent="Редактирование книги";
     const dataLi = target.closest("li");
 
-    appData.forEach((elem) =>{
+    appData.some((elem) =>{
       if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
         formEditor.querySelectorAll("input").forEach((e) => {
             e.value = elem[e.getAttribute("name")];
         });
-       return;
-      }  
-    })
+            return elem;
+      }
+      console.log(elem);
+       
+      
+      
+    });
+    console.log(12);
     
 };
 
@@ -98,8 +105,6 @@ main.addEventListener("click",(event)=>{
 
     //редактирование 
     if (target.matches(".btn-editor")) {
-        
-        
         editorBooks(target);
     }
     
