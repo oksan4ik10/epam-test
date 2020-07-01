@@ -62,11 +62,11 @@ const editorSave = (i)=>{
 let eSave; //вспомогательная переменная для удаления обработчика события сохранения
 
 //функция для редактирования формы
-const editorBooks = (target) =>{
+const editorBooks = (dataLi) =>{
     main.classList.add("none");
     formEditor.classList.remove("none");
     editorHead.textContent="Редактирование книги";
-    const dataLi = target.closest("li");
+    // const dataLi = target.closest("li");
 
     appData.some((elem, item) =>{
       if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
@@ -80,6 +80,18 @@ const editorBooks = (target) =>{
       
     });
 };
+//функция для удаления формы
+const deleteBook = (dataLi)=>{
+    appData.some((elem, item) =>{
+        if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
+            appData.splice(item,1);
+        }
+        return elem;
+    });
+    render();
+    
+};
+
 
 //рендер
 const mainUl = document.querySelector("main ul");
@@ -126,9 +138,11 @@ main.addEventListener("click",(event)=>{
     const target = event.target;
 
     //редактирование 
-    if (target.matches(".btn-editor")) {
-        editorBooks(target);
-    }
+    if (target.matches(".btn-editor")) editorBooks(target.closest("li"));
+
+
+    //удаление
+    if (target.matches(".btn-delete")) deleteBook(target.closest("li"));
     
 });
 
