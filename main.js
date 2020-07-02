@@ -56,6 +56,7 @@ const appData = [{
     main.classList.remove("none");
     formEditor.classList.add("none");
     btnSave.removeEventListener("click", eSave);
+    btnSave.removeEventListener("click", addBook);
  }
 
 
@@ -103,8 +104,9 @@ const deleteBook = (dataLi)=>{
     appData.some((elem, item) =>{
         if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
             appData.splice(item,1);
+            return elem;
         }
-        return elem;
+      
     });
     render();
 };
@@ -138,8 +140,6 @@ const render = () =>{
     mainUl.textContent = "";
     appData.forEach((elem) =>{
         const li = document.createElement("li");
-        console.log(elem.img);
-        
         li.innerHTML=`<img src=${elem.img} alt="Harry Potter 2">
                     <div class="about-book">
                         <h2>${elem.head}</h2>
