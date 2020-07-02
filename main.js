@@ -34,11 +34,10 @@ const appData = [{
  const readForm = (form) =>{
     let body={},
     test = true;
-
     const formData = new FormData(form);
         formData.forEach((val, key) => {
-            if(key === "year"){
-                if (+val>2017){
+            if(key === "year" || val==="" ){
+                if ( (+val>2017) || val==="" ){
                     test = false;
                     return test;
                 }
@@ -67,8 +66,7 @@ const editorSave = (i)=>{
     event.preventDefault();
     const newObj = readForm(formEditor);
     if (!newObj) {
-        yearValue.value="";
-        alert("Литература не позднее 2017 года");
+        alert("Литература не позднее 2017 года или есть пустые поля");
         return;
     }
     appData[i] = newObj;
@@ -78,6 +76,7 @@ const editorSave = (i)=>{
     zeroForm();
 
 };
+
 
 let eSave; //вспомогательная переменная для удаления обработчика события сохранения
 
@@ -98,7 +97,8 @@ const editorBooks = (dataLi) =>{
       
     });
 };
-//функция для удаления формы
+
+//функция для удаления книги
 const deleteBook = (dataLi)=>{
     appData.some((elem, item) =>{
         if((dataLi.querySelector("img").getAttribute("src")===elem.img)&&(dataLi.querySelector("h2").textContent===elem.head)){
@@ -110,12 +110,36 @@ const deleteBook = (dataLi)=>{
 };
 
 
+
+
+//функция для добавления 
+const addBook = (event)=>{
+    event.preventDefault();
+    const newObj = readForm(formEditor);
+    if (!newObj) {
+        alert("Литература не позднее 2017 года или есть пустые поля");
+        return;
+    }
+    appData.push(newObj);
+    main.classList.remove("none");
+    formEditor.classList.add("none");
+    render();
+    zeroForm();    
+
+};
+
+
+
+
+
 //рендер
 const mainUl = document.querySelector("main ul");
 const render = () =>{
     mainUl.textContent = "";
     appData.forEach((elem) =>{
         const li = document.createElement("li");
+        console.log(elem.img);
+        
         li.innerHTML=`<img src=${elem.img} alt="Harry Potter 2">
                     <div class="about-book">
                         <h2>${elem.head}</h2>
@@ -144,12 +168,18 @@ btnZ.addEventListener("click", (event)=>{
 
 
 //замена формы "Добавить книгу"        
-btnAdd.addEventListener("click", ()=>{
+btnAdd.addEventListener("click", (event)=>{
+    const target = event.target;
+    zeroForm();    
     editorHead.textContent="Добавить книгу";
     main.classList.add("none");
     formEditor.classList.remove("none");
 
+    btnSave.addEventListener("click",addBook);
 
+
+
+    // btnSave.addEventListener("click",addBook, false);
 });
 
 main.addEventListener("click",(event)=>{
