@@ -56,27 +56,8 @@ const appData = [{
     main.classList.remove("none");
     formEditor.classList.add("none");
     btnSave.removeEventListener("click", eSave);
-    btnSave.removeEventListener("click", addBook);
- }
-
-
-
-
-//функция для сохранения данных в объекте
-const editorSave = (i)=>{
-    event.preventDefault();
-    const newObj = readForm(formEditor);
-    if (!newObj) {
-        alert("Литература не позднее 2017 года или есть пустые поля");
-        return;
-    }
-    appData[i] = newObj;
-    main.classList.remove("none");
-    formEditor.classList.add("none");
-    render();
-    zeroForm();
-
-};
+    btnSave.removeEventListener("click", addEditorBook);
+ };
 
 
 let eSave; //вспомогательная переменная для удаления обработчика события сохранения
@@ -91,7 +72,7 @@ const editorBooks = (dataLi) =>{
         formEditor.querySelectorAll("input").forEach((e) => {
             e.value = elem[e.getAttribute("name")];
         });
-        eSave = editorSave.bind(this, item);
+        eSave = addEditorBook.bind(this, item);
         btnSave.addEventListener("click",eSave, false);
         return elem;
       };
@@ -111,26 +92,22 @@ const deleteBook = (dataLi)=>{
     render();
 };
 
-
-
-
-//функция для добавления 
-const addBook = (event)=>{
+//добавление+сохранение
+const addEditorBook = (i) =>{
     event.preventDefault();
     const newObj = readForm(formEditor);
     if (!newObj) {
         alert("Литература не позднее 2017 года или есть пустые поля");
         return;
-    }
-    appData.push(newObj);
+    };
+    if (typeof(i) === "number") appData[i] = newObj;
+    else appData.push(newObj);
+
     main.classList.remove("none");
     formEditor.classList.add("none");
     render();
     zeroForm();    
-
 };
-
-
 
 
 
@@ -175,11 +152,7 @@ btnAdd.addEventListener("click", (event)=>{
     main.classList.add("none");
     formEditor.classList.remove("none");
 
-    btnSave.addEventListener("click",addBook);
-
-
-
-    // btnSave.addEventListener("click",addBook, false);
+    btnSave.addEventListener("click",addEditorBook);
 });
 
 main.addEventListener("click",(event)=>{
