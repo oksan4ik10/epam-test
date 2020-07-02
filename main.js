@@ -32,13 +32,23 @@ const appData = [{
 
 //чтение данных из формы
  const readForm = (form) =>{
-    let body={};
+    let body={},
+    test = true;
+
     const formData = new FormData(form);
         formData.forEach((val, key) => {
+            if(key === "year"){
+                if (+val>2017){
+                    test = false;
+                    return test;
+                }
+            }
             body[key] = val;
     });
-    return body;
+    if (test) return body;
+    return test;
  };
+
  //обнуление данных с формы после нажатия на кнопки
  const zeroForm = ()=>{
     formEditor.querySelectorAll("input").forEach((item) => {
@@ -56,6 +66,11 @@ const appData = [{
 const editorSave = (i)=>{
     event.preventDefault();
     const newObj = readForm(formEditor);
+    if (!newObj) {
+        yearValue.value="";
+        alert("Литература не позднее 2017 года");
+        return;
+    }
     appData[i] = newObj;
     main.classList.remove("none");
     formEditor.classList.add("none");
