@@ -145,8 +145,7 @@ btnZ.addEventListener("click", (event)=>{
 
 
 //замена формы "Добавить книгу"        
-btnAdd.addEventListener("click", (event)=>{
-    const target = event.target;
+btnAdd.addEventListener("click", ()=>{
     zeroForm();    
     editorHead.textContent="Добавить книгу";
     main.classList.add("none");
